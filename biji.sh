@@ -25,10 +25,10 @@ password="Kontol@12k"
 hashed_password=$(echo -n "$password" | sha256sum | awk '{print $1}')
 
 # Buat user baru dengan akses admin
-mysql -u$DB_USER -p$DB_PASSWORD $DB_NAME <<EOF
+mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "
 INSERT INTO users (first_name, last_name, username, email, password, account_type)
 VALUES ('$first_name', '$last_name', '$username', '$email', '$hashed_password', 'admin');
-EOF
+"
 
 if [ $? -eq 0 ]; then
     echo "Pengguna admin $username berhasil dibuat."
